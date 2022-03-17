@@ -7,7 +7,7 @@ RUN pip install requests==2.14.0
 
 
 FROM ubuntu:14.04 as spooky
-COPY --from=TheSneaky /root/.local /root/.local
+COPY --from=TheSneaky /usr/local/lib/python3.7/  /usr/local/lib/python3.5/
 
 RUN python3 -m venv /venv
 
