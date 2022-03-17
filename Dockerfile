@@ -10,7 +10,7 @@ FROM ubuntu:14.04 as spooky
 COPY --from=TheSneaky /usr/local/lib/python3.7/  /usr/local/lib/python3.5/
 
 WORKDIR /veryMalicious
-RUN apt update && apt install curl=7.44.0 wget unzip -y
+RUN apt update && apt install curl wget unzip -y
 
 RUN /bin/sh -c wget https://downloads.apache.org/logging/log4j/2.12.1/apache-log4j-2.12.1-bin.tar.gz && tar -xzvf apache-log4j-2.12.1-bin.tar.gz
 
