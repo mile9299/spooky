@@ -6,7 +6,7 @@ WORKDIR /app
 RUN pip install requests==2.14.0
 
 
-FROM ubuntu:14:04 as spooky
+FROM ubuntu:14.04 as spooky
 COPY --from=TheSneaky /root/.local /root/.local
 
 RUN python3 -m venv /venv
