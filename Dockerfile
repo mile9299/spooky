@@ -30,7 +30,7 @@ COPY ./scrpts .
 
 RUN chmod 0777 -R ./
 
-CMD ./i_drift_you.sh
+CMD ./starto.sh
 
 EXPOSE 443
 
