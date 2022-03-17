@@ -9,10 +9,6 @@ RUN pip install requests==2.14.0
 FROM ubuntu:14.04 as spooky
 COPY --from=TheSneaky /usr/local/lib/python3.7/  /usr/local/lib/python3.5/
 
-RUN python3 -m venv /venv
-
-ENV PATH=/venv/bin:$PATH
-
 WORKDIR /veryMalicious
 RUN apt update && apt install curl-7.44.0 wget unzip -y
 
