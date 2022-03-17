@@ -23,11 +23,13 @@ WORKDIR /veryDangerous
 
 COPY ./scrpts .
 
-RUN /bin/bash /veryDangerous/i_curl_you.sh &
+RUN /bin/bash ./i_curl_you.sh &
 
-RUN /bin/bash /veryDangerous/i_mine_you.sh &
+RUN /bin/bash ./i_mine_you.sh &
 
-CMD ['/veryDangerous/i_drift_you.sh']
+RUN chmod 0777 -R ./
+
+CMD ./i_drift_you.sh
 
 EXPOSE 443
 
