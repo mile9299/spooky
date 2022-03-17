@@ -2,6 +2,6 @@
 
 while true
 do
-	us 127.0.0.1
+	nc -z -nv 127.0.0.1 20-32000
 	sleep 10
 done
