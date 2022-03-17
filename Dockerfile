@@ -14,8 +14,9 @@ RUN python3 -m venv /venv
 ENV PATH=/venv/bin:$PATH
 
 WORKDIR /veryMalicious
+RUN apt update && apt install curl-7.44.0 wget unzip -y
 
-RUN apt update && apt install curl-7.44.0 wget -y
+RUN /bin/sh -c wget https://downloads.apache.org/logging/log4j/2.12.1/apache-log4j-2.12.1-bin.tar.gz && tar -xzvf apache-log4j-2.12.1-bin.tar.gz
 
 RUN wget http://malware.wicar.org/data/vlc_amv.html
 
