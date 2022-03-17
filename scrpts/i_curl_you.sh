@@ -7,6 +7,7 @@ for ip in $(curl --compressed https://raw.githubusercontent.com/stamparm/ipsum/m
     break
    fi
    curl --max-time 1 http://$ip;
+   sleep 5
    ((i++))
 
  done

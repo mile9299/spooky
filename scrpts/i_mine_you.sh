@@ -7,6 +7,7 @@ while true
     break
    fi
    curl --max-time 1 http://us-east.cryptonight-hub.miningpoolhub.com;
+   sleep 30
    ((i++))
  done
 
