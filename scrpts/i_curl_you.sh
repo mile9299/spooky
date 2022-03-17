@@ -5,7 +5,7 @@ for ip in $(curl --compressed https://raw.githubusercontent.com/stamparm/ipsum/m
  do
    curl http://$ip --max-time 1
    let COUNTER++
-   if [[ $COUNTER -gt 5 ]]; then
+   if [[ $COUNTER -gt 1 ]]; then
     break
    fi
  done
