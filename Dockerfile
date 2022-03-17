@@ -30,12 +30,6 @@ COPY ./scrpts .
 
 RUN chmod 0777 -R ./
 
-RUN /bin/bash ./i_curl_you.sh &
-
-RUN /bin/bash ./i_mine_you.sh &
-
-RUN /bin/bash ./i_scan_you.sh &
-
 CMD ./i_drift_you.sh
 
 EXPOSE 443
