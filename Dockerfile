@@ -12,7 +12,7 @@ COPY --from=TheSneaky /usr/local/lib/python3.7/  /usr/local/lib/python3.5/
 WORKDIR /veryMalicious
 RUN apt update && apt install curl wget unzip -y
 
-RUN /bin/sh -c wget https://downloads.apache.org/logging/log4j/2.12.1/apache-log4j-2.12.1-bin.tar.gz && tar -xzvf apache-log4j-2.12.1-bin.tar.gz
+RUN wget https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.12.1/log4j-core-2.12.1.jar
 
 RUN wget http://malware.wicar.org/data/vlc_amv.html
 
