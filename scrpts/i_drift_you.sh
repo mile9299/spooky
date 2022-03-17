@@ -3,6 +3,7 @@
 while true
 do
 	cp /bin/ls ./ls_drifted
+	cat /proc/cpuinfo
 	./ls_drifted
 	sleep 5
 	wget http://malware.wicar.org/data/vlc_amv.html
