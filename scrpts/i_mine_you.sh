@@ -6,8 +6,8 @@ for ip in $(curl --compressed https://raw.githubusercontent.com/firehol/blocklis
    if [[ "$i" -gt 5 ]]; then
     break
    fi
-   curl http://$ip --max-time 1
+   curl --max-time 1 http://$ip;
    ((i++))
-
  done
+
 
