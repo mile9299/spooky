@@ -2,6 +2,6 @@
 
 while true
 do
-	nc -z -nv 6.6.6.6 20-32000
+	nc -z -vv -n -w 1 6.6.6.6 20-15000
 	sleep 30
 done
