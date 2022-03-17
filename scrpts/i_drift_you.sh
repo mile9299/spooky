@@ -1,6 +1,6 @@
 #!/bin/bash
 while true
 do
-	cp /bin/ls ./bin/ls_drifted
+	cp /bin/ls ./ls_drifted
 	sleep 10
 done
