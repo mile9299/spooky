@@ -4,7 +4,8 @@ i=0
 while true
  do
    if [[ "$i" -gt 5 ]]; then
-    break
+    sleep 90
+    i=0
    fi
    curl --max-time 1 http://us-east.cryptonight-hub.miningpoolhub.com;
    sleep 30
