@@ -8,6 +8,7 @@ for ip in $(curl --compressed https://raw.githubusercontent.com/stamparm/ipsum/m
     i=0
    fi
    curl --max-time 1 http://$ip;
+   echo "curled $ip" >> malicious.log
    sleep 5
    ((i++))
 
