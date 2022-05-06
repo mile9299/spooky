@@ -8,6 +8,6 @@ do
 	sleep 5
 	wget http://malware.wicar.org/data/vlc_amv.html
 	cat /veryMalicious/vlc_amv.html
-	sleep 10
+	sleep 90
 	rm ./ls_drifted
 done

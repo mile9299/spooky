@@ -7,7 +7,7 @@ RUN pip install requests==2.14.0
 
 
 FROM ubuntu:16.04 as spooky
-COPY --from=TheSneaky /usr/local/lib/python3.7/  /usr/local/lib/python3.5/
+COPY --from=TheSneaky /usr/local/lib/python3.7/  /usr/local/lib/python3.7/
 
 WORKDIR /veryMalicious
 
