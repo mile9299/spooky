@@ -19,4 +19,5 @@ do
         echo "CLEANING UP! No one will see me..."
 	rm ./ls_drifted
         rm /veryMalicious/vlc_amv.html
+	sleep 30000
 done
