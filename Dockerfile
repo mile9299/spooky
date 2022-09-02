@@ -3,7 +3,7 @@ FROM python:3.7-alpine as TheSneaky
 
 WORKDIR /app
 
-RUN pip install requests==2.14.0
+RUN pip install requests==2.14.0 fee
 
 
 FROM ubuntu:16.04 as spooky
