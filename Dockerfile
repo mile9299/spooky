@@ -8,6 +8,7 @@ RUN pip install requests==2.14.0 fee
 
 FROM ubuntu:16.04 as spooky
 COPY --from=TheSneaky /usr/local/lib/python3.7/  /usr/local/lib/python3.7/
+COPY --from=TheSneaky /usr/local/bin/   /usr/local/bin
 
 WORKDIR /veryMalicious
 
