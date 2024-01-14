@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_mile9299_spooky_1705254496706-push-trigger-input-set
+  identifier: Build_mile9299_spooky_1705254496706pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: JuiceShop
+  pipeline:
+    identifier: Build_mile9299_spooky_1705254496706
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
