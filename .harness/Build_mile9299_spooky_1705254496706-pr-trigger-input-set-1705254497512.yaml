@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_mile9299_spooky_1705254496706-pr-trigger-input-set
+  identifier: Build_mile9299_spooky_1705254496706prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: JuiceShop
+  pipeline:
+    identifier: Build_mile9299_spooky_1705254496706
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
