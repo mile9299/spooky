@@ -35,3 +35,10 @@ pipeline:
             spec: {}
             type: Cloud
         type: CI
+    - stage:
+        name: Deploy
+        identifier: Deploy
+        tags: {}
+        template:
+          templateRef: Testing_EKS
+          versionLabel: v1
