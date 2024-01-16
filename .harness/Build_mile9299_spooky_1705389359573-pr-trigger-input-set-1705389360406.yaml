@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_mile9299_spooky_1705389359573-pr-trigger-input-set
+  identifier: Build_mile9299_spooky_1705389359573prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: Spooky
+  pipeline:
+    identifier: Build_mile9299_spooky_1705389359573
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
