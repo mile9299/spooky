@@ -58,7 +58,7 @@ pipeline {
                     echo 'Deploying application...'
                     sh 'docker stop spooky || true'
                     sh 'docker rm spooky || true'
-                    def containerId = sh(script: "docker run -d -P --name juice-shop juice-shop", returnStdout: true).trim()
+                    def containerId = sh(script: "docker run -d -P --name spooky spooky", returnStdout: true).trim()
                     def dockerHostPort = sh(script: "docker port ${containerId} ${DOCKER_PORT} | cut -d ':' -f 2", returnStdout: true).trim()
                     echo "Spooky is running on http://localhost:${dockerHostPort}"
                 }
