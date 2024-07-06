@@ -36,20 +36,15 @@ pipeline {
            //     sh "$HOME/.spectral/spectral scan --ok --engines secrets,iac,oss --include-tags base,audit,iac"
              // }
        // }
-        stage('Build') {
+         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'npm cache clean -f'
-                    sh 'npm install --force'
-                    // Start the application in the background using nohup
-                    sh 'nohup npm start > /dev/null 2>&1 &'
-
-                    // Sleep for a few seconds to ensure the application has started before moving to the next stage
-                    sleep(time: 5, unit: 'SECONDS')
+                    echo 'Building Docker image...'
+                    def dockerImage = docker.build('spooky', '-f Dockerfile .')
+                    echo 'Docker image built successfully!'
                 }
             }
         }
-
         stage('Falcon Cloud Security') {
               steps {
                 withCredentials([usernameColonPassword(credentialsId: 'CRWD', variable: '')]) {
@@ -57,23 +52,19 @@ pipeline {
             }
           }
         }
-        
         stage('Deploy') {
             steps {
                 script {
-                    // Stop and remove the container if it exists
+                    echo 'Deploying application...'
                     sh 'docker stop spooky || true'
                     sh 'docker rm spooky || true'
-
-                    // Build and run the Docker container with a dynamically allocated port
-                    sh "docker build -t spooky ."
-                   // sh "DOCKER_PORT=\$(docker run -d -P --name spooky apooky)"
-                    // sh "DOCKER_HOST_PORT=\$(docker port $DOCKER_PORT 3000 | cut -d ':' -f 2)"
-
-                    echo "Spooky is Running"
+                    def containerId = sh(script: "docker run -d -P --name juice-shop juice-shop", returnStdout: true).trim()
+                    def dockerHostPort = sh(script: "docker port ${containerId} ${DOCKER_PORT} | cut -d ':' -f 2", returnStdout: true).trim()
+                    echo "Spooky is running on http://localhost:${dockerHostPort}"
                 }
             }
         }
+        
     }
 
     post {
