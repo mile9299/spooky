@@ -55,7 +55,8 @@ pipeline {
         stage('Trivy Scan') {
           steps {
             sh 'trivy image spooky:latest --output cve_report.html'
-            }
+          }
+        }
         stage('Deploy') {
             steps {
                 script {
