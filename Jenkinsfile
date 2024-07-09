@@ -54,7 +54,7 @@ pipeline {
         }
         stage('Trivy Scan') {
           steps {
-            sh 'trivy image scorpas/spooky --output cve_report.html --format json'
+            sh 'trivy image scorpas/spooky'
           }
         }
         stage('Deploy') {
