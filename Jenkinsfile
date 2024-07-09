@@ -54,7 +54,7 @@ pipeline {
         }
         stage('Trivy Scan') {
           steps {
-            sh 'trivy image scorpas/spooky'
+            sh 'trivy image spooky:latest'
           }
         }
         stage('Deploy') {
