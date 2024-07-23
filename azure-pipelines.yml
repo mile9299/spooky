@@ -4,7 +4,7 @@ trigger:
 variables:
   JUICE_SHOP_REPO: 'https://github.com/mile9299/spooky.git'
   DOCKER_PORT: 3000
-  SPECTRAL_DSN: $(SPECTRAL_DSN)
+#  SPECTRAL_DSN: $(SPECTRAL_DSN)
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -21,10 +21,10 @@ jobs:
     displayName: 'Checkout Repository'
     clean: true
 
-  - script: |
-      echo 'Cloning repository...'
-      git clone $(JUICE_SHOP_REPO) .
-    displayName: 'Clone Juice Shop Repository'
+  #- script: |
+  #    echo 'Cloning repository...'
+  #    git clone $(JUICE_SHOP_REPO) .
+  #  displayName: 'Clone Juice Shop Repository'
 
   # - task: SnykSecurity@1
   #   inputs:
