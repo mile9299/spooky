@@ -1,19 +1,79 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
+variables:
+  JUICE_SHOP_REPO: 'https://github.com/mile9299/spooky.git'
+  DOCKER_PORT: 3000
+  SPECTRAL_DSN: $(SPECTRAL_DSN)
+
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+jobs:
+- job: BuildAndDeploy
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.0.0'
+    displayName: 'Use Node.js 18.x'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - checkout: self
+    displayName: 'Checkout Repository'
+    clean: true
+
+  - script: |
+      echo 'Cloning repository...'
+      git clone $(JUICE_SHOP_REPO) .
+    displayName: 'Clone Juice Shop Repository'
+
+  # - task: SnykSecurity@1
+  #   inputs:
+  #     severityThreshold: 'critical'
+  #     failOnIssues: false
+  #     snykServiceEndpoint: 'SNYK'
+  #   displayName: 'Test with Snyk'
+
+  # - script: |
+  #     curl -L 'https://get.spectralops.io/latest/x/sh?dsn=$(SPECTRAL_DSN)' | sh
+  #   displayName: 'Install Spectral'
+
+  # - script: |
+  #     $HOME/.spectral/spectral scan --ok --engines secrets,iac,oss --include-tags base,audit,iac
+  #   displayName: 'Scan for Issues with Spectral'
+
+  - script: |
+      echo 'Building Docker image...'
+      docker build -t spooky -f Dockerfile .
+      echo 'Docker image built successfully!'
+    displayName: 'Build Docker Image'
+
+  - task: CrowdStrikeFalconSecurity@1
+    inputs:
+      imageName: 'spooky'
+      imageTag: 'latest'
+      enforce: true
+      timeout: 60
+    displayName: 'Falcon Cloud Security'
+
+  - script: |
+      trivy image spooky:latest
+    displayName: 'Trivy Scan'
+
+  - script: |
+      echo 'Deploying application...'
+      docker stop spooky || true
+      docker rm spooky || true
+      container_id=$(docker run -d -P --name spooky spooky)
+      docker_host_port=$(docker port $container_id $(DOCKER_PORT) | cut -d ':' -f 2)
+      echo "Spooky is running on http://localhost:${docker_host_port}"
+    displayName: 'Deploy Application'
+
+  - script: |
+      echo 'Build, test, and deployment successful!'
+    displayName: 'Success Message'
+    condition: succeeded()
+
+  - script: |
+      echo 'Build, test, or deployment failed!'
+    displayName: 'Failure Message'
+    condition: failed()
