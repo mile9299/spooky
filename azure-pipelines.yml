@@ -47,17 +47,12 @@ jobs:
       echo 'Docker image built successfully!'
     displayName: 'Build Docker Image'
 
-  - task: CrowdStrikeFalconSecurity@1
-    inputs:
-      imageName: 'spooky'
-      imageTag: 'latest'
-      enforce: true
-      timeout: 60
-    displayName: 'Falcon Cloud Security'
-
   - script: |
-      trivy image spooky:latest
-    displayName: 'Trivy Scan'
+        echo 'Running Falcon Cloud Security...'
+        export CROWDSTRIKE_USERNAME=a2e099ba51a44ef8ac1fce8fc22d2f88
+        export CROWDSTRIKE_PASSWORD=NU7ZwVbI49ruy1x0QHnO26CMlKLgAvYiGh3jF5R8
+        crowdStrikeSecurity --image-name spooky --image-tag latest --enforce true --timeout 60
+    displayName: 'Falcon Cloud Security'
 
   - script: |
       echo 'Deploying application...'
