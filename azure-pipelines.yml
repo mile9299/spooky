@@ -4,7 +4,8 @@ trigger:
 variables:
   JUICE_SHOP_REPO: 'https://github.com/mile9299/spooky.git'
   DOCKER_PORT: 3000
-  # SPECTRAL_DSN: $(SPECTRAL_DSN)
+  FALCON_CLIENT_ID: 'a2e099ba51a44ef8ac1fce8fc22d2f88'
+  FALCON_CLIENT_SECRET: 'NU7ZwVbI49ruy1x0QHnO26CMlKLgAvYiGh3jF5R8'
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -38,4 +39,28 @@ jobs:
 
       - script: |
           echo 'Build, test, and deployment successful!'
-          
+        displayName: 'Success Message'
+        condition: succeeded()
+
+      - script: |
+          echo 'Build, test, or deployment failed!'
+        displayName: 'Failure Message'
+        condition: failed()
+
+  - job: ScanContainerImages
+    displayName: 'Scan Container Images'
+    steps:
+      - checkout: self
+        displayName: 'Checkout Repository'
+        clean: true
+
+      - script: |
+          echo "Scanning container image with CrowdStrike..."
+          docker pull docker.io/library/busybox
+          curl -sSL -o /usr/local/bin/crowdstrike-scan https://raw.githubusercontent.com/CrowdStrike/container-image-scan-action/v1.1.0/entrypoint.sh
+          chmod +x /usr/local/bin/crowdstrike-scan
+          FALCON_CLIENT_ID=$(FALCON_CLIENT_ID) FALCON_CLIENT_SECRET=$(FALCON_CLIENT_SECRET) crowdstrike-scan
+        displayName: 'CrowdStrike Container Image Scan'
+        env:
+          FALCON_CLIENT_ID: $(FALCON_CLIENT_ID)
+          FALCON_CLIENT_SECRET: $(FALCON_CLIENT_SECRET)
