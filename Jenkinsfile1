@@ -21,6 +21,10 @@ pipeline {
             steps {
                 script {
                     echo 'Building Podman image...'
+                    sh 'podman cache clean -f'
+                    sh 'podman install'
+                    // Start the application in the background using nohup
+                    sh 'nohup podman start > /dev/null 2>&1 &'
                     def podmanImage = sh(script: 'podman build -t spooky -f Dockerfile .', returnStdout: true).trim()
                     echo 'Podman image built successfully!'
                 }
